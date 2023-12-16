@@ -22,6 +22,7 @@ public class Controller
     @RequestMapping("/checkout")
     public String checkout()
     {
+       // log.info(System.getProperty("JAEGER_ENDPOINT"));
         Span checkoutSpan = tracer.buildSpan("checkout").start();
         log.info("Checkout");
         checkoutSpan.finish();
