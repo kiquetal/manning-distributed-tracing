@@ -17,6 +17,12 @@ public class Controller
 {
 
     @Autowired
+    InventoryService inventoryService;
+    @Autowired
+    BillingService billingService;
+    @Autowired
+    DeliveryService deliveryService;
+    @Autowired
     Tracer tracer;
     Logger log = LoggerFactory.getLogger(Controller.class);
     @RequestMapping("/checkout")
@@ -25,6 +31,9 @@ public class Controller
        // log.info(System.getProperty("JAEGER_ENDPOINT"));
         Span checkoutSpan = tracer.buildSpan("checkout").start();
         log.info("Checkout");
+        inventoryService.createOrder(checkoutSpan);
+        billingService.payment(checkoutSpan);
+        deliveryService.arrangeDelivery(checkoutSpan);
         checkoutSpan.finish();
         return "Checkout";
     }
