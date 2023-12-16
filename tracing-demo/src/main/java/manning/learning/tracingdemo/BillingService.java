@@ -25,4 +25,17 @@ public class BillingService
         paymentSpan.finish();
         log.info("Payment Done");
     }
+
+    public void paymentV2()
+    {
+        Span paymentSpan = tracer.buildSpan("payment").start();
+        log.info("Payment");
+        try {
+            Thread.sleep(1000 * Math.round(Math.random()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        paymentSpan.finish();
+        log.info("Payment Done");
+    }
 }

@@ -26,4 +26,18 @@ public class InventoryService
         log.info("Order Created");
 
     }
+    public void createOrderV2()
+    {
+        log.info("Creating Order");
+
+        Span inventorySpan = tracer.buildSpan("inventory").start();
+
+        try {
+            Thread.sleep(1000 * Math.round(Math.random()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        inventorySpan.finish();
+    }
 }

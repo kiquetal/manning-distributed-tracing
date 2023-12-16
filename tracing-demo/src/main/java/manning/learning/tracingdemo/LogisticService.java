@@ -26,4 +26,17 @@ public class LogisticService
         logisticSpan.finish();
         log.info("Transported");
     }
+
+    public void transportV2()
+    {
+        Span  logisticSpan = tracer.buildSpan("logistic").start();
+         log.info("Transporting");
+        try {
+            Thread.sleep(1000 * Math.round(Math.random()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        logisticSpan.finish();
+        log.info("Transported");
+    }
 }

@@ -1,6 +1,7 @@
 package manning.learning.tracingdemo;
 
 
+import io.opentracing.ScopeManager;
 import io.opentracing.Span;
 import io.opentracing.Tracer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,21 @@ public class DeliveryService
         }
 
         log.info("Delivery Arranged");
+        deliverySpan.finish();
+    }
+
+    public void arrangeDeliveryV2()
+    {
+        Span deliverySpan = tracer.buildSpan("delivery").start();
+        tracer.scopeManager().activate(deliverySpan);
+        log.info("Arranging Delivery");
+        try {
+            Thread.sleep(1000 * Math.round(Math.random()));
+            logisticService.transportV2();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         deliverySpan.finish();
     }
 }
