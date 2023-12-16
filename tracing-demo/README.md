@@ -18,3 +18,13 @@ docker run -d --name jaeger   -p 14268:14268   -p 16686:16686   jaegertracing/al
 ### Install the client in spring boot
 
 	implementation 'io.jaegertracing:jaeger-client:1.8.1'
+
+
+### For the milestone1 
+
+    Check the file Controller.java
+
+### For the mileston2
+
+    Check the file ControllerV2.java
+
