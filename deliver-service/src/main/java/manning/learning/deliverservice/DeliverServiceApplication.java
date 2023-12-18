@@ -1,5 +1,7 @@
 package manning.learning.deliverservice;
 
+import io.jaegertracing.Configuration;
+import io.opentracing.Tracer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -18,5 +20,12 @@ public class DeliverServiceApplication
     public RestTemplate getRestTemplate()
     {
         return new RestTemplate();
+    }
+
+    @Bean
+    public Tracer getTracer()
+    {
+        // Check dockerfile we need to set environment -varaible
+        return  Configuration.fromEnv("eshop").getTracer();
     }
 }

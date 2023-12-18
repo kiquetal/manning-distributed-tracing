@@ -1,23 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: eshop-deployment
+  name: inventory
   labels:
-    app: eshop
+    app: inventory
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: eshop
+      app: inventory
   template:
     metadata:
       labels:
-        app: eshop
+        app: inventory
     spec:
       containers:
-      - name: eshop
-        image: eshop:latest
+      - name: inventory
+        image: inventory-service:latest
         imagePullPolicy: Never
-   
         ports:
         - containerPort: 8080
+
+

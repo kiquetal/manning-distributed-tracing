@@ -1,6 +1,8 @@
 package manning.learning.deliverservice;
 
 
+import io.opentracing.Span;
+import io.opentracing.Tracer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,11 +15,13 @@ public class DeliveryController
 {
     @Autowired
     private RestTemplate restTemplate;
-
+@Autowired
+    private Tracer tracer;
     @RequestMapping("/arrangeDelivery")
     public String arrangeDelivery()
     {
         Logger log = Logger.getLogger(DeliveryController.class.getName());
+        Span span = tracer.buildSpan("arrangeDelivery").start();
         String result = "";
         log.info("Arranging delivery");
         try {
@@ -27,6 +31,7 @@ public class DeliveryController
             log.info("Exception: " + e.getMessage());
         }
         log.info("Delivery arranged");
+        span.finish();
         return result;
     }
 }
