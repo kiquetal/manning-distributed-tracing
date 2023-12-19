@@ -19,7 +19,7 @@ public class EShopController
     private RestTemplate restTemplate;
     String result="";
     @Autowired
-private Tracer tracer;
+    private Tracer tracer;
     Logger log = Logger.getLogger(EShopController.class.getName());
     @RequestMapping("/checkout")
     public String checkout()
@@ -29,6 +29,7 @@ private Tracer tracer;
         result = restTemplate.exchange("http://inventory-service:8080/createOrder", HttpMethod.GET, null, String.class).getBody();
         result = result + "<br>" + restTemplate.exchange("http://billing-service:8080/payment", HttpMethod.GET, null, String.class).getBody();
         result = result + "<br>" + restTemplate.exchange("http://delivery-service:8080/arrangeDelivery", HttpMethod.GET, null, String.class).getBody();
+        // modify
         log.info("checkout() method finished");
         span.finish();
         return result;
