@@ -25,7 +25,8 @@ public class DeliveryController
         String result = "";
         log.info("Arranging delivery");
         try {
-            result = restTemplate.exchange("http://logistic-service:8080/transport", org.springframework.http.HttpMethod.GET, null, String.class).getBody();
+            result += "Delivery arranged";
+            result += restTemplate.exchange("http://logistic-service:8080/transport", org.springframework.http.HttpMethod.GET, null, String.class).getBody();
             Thread.sleep(800 + (int) (Math.random() * 400));
         } catch (Exception e) {
             log.info("Exception: " + e.getMessage());
