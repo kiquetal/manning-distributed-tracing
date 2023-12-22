@@ -1,8 +1,11 @@
 package manning.learning.inventoryservice;
 
 import io.opentracing.Span;
+import io.opentracing.SpanContext;
 import io.opentracing.Tracer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,12 +16,15 @@ public class InventoryController
 {
     @Autowired
     private Tracer tracer;
+    Logger logger = Logger.getLogger(InventoryController.class.getName());
+
     @RequestMapping("/createOrder")
-    public String creteOrder()
+    public String creteOrder(@RequestHeader HttpHeaders httpHeaders )
     {
 
-        Span span = tracer.buildSpan("createOrder").start();
-        Logger logger = Logger.getLogger(InventoryController.class.getName());
+        logger.info("[HttpHeaders]"+ httpHeaders.toString());
+        SpanContext parent = tracer.extract(io.opentracing.propagation.Format.Builtin.HTTP_HEADERS, new HttpHeaderCarrier(httpHeaders));
+        Span span = tracer.buildSpan("createOrder").asChildOf(parent).start();
         logger.info("Order Created");
         try
         {

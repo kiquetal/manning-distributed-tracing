@@ -6,3 +6,5 @@
 	- delivery-service { logistic-service}
 
 	All dockerfile set the jeager endpoint
+
+       http://jaeger-service:16686
