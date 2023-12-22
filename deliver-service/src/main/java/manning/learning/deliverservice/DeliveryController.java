@@ -29,11 +29,12 @@ public class DeliveryController
 
         SpanContext parent = tracer.extract(io.opentracing.propagation.Format.Builtin.HTTP_HEADERS, new HttpHeaderCarrier(headers));
         Span span = tracer.buildSpan("arrangeDelivery").asChildOf(parent).start();
+        String user = span.getBaggageItem("user");
         tracer.inject(span.context(), io.opentracing.propagation.Format.Builtin.HTTP_HEADERS, new HttpHeaderCarrier(headers));
         String result = "";
         log.info("Arranging delivery");
         try {
-            result += "Delivery arranged"+"<br>";
+            result += String.format("%s's order is on the way.\n ", user);
             HttpEntity<String> entity = new HttpEntity<>(headers);
             result += restTemplate.exchange("http://logistic-service:8080/transport", org.springframework.http.HttpMethod.GET, entity, String.class).getBody();
             Thread.sleep(800 + (int) (Math.random() * 400));

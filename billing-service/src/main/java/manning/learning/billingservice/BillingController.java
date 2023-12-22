@@ -25,6 +25,7 @@ public class BillingController
       log.info("All headers: " + httpHeaders);
      SpanContext parentSpanContext = tracer.extract(io.opentracing.propagation.Format.Builtin.HTTP_HEADERS, new HttpHeaderCarrier(httpHeaders));
      Span span = tracer.buildSpan("payment").asChildOf(parentSpanContext).start();
+     String user = span.getBaggageItem("user");
      log.info("Init payment");
      try
      {
@@ -37,7 +38,7 @@ public class BillingController
         }
         log.info("End payment");
         span.finish();
-    return "Payment Done";
+    return String.format("%s's has been paid\n", user);
     }
 
 }

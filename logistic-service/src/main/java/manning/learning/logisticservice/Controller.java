@@ -29,6 +29,7 @@ public class Controller
         SpanContext parentSpanContext = tracer.extract(io.opentracing.propagation.Format.Builtin.HTTP_HEADERS, new HttpHeaderCarrier(httpHeaders));
         log.info("parentSpanContext: " + parentSpanContext);
         Span span = tracer.buildSpan("transport").asChildOf(parentSpanContext).start();
+        String user = span.getBaggageItem("user");
         try
         {
             Thread.sleep(800 + (int)(Math.random() * 400));
@@ -40,6 +41,6 @@ public class Controller
         }
         log.info("Transported");
         span.finish();
-        return "Transported";
+        return String.format("%s's order is delivered\n", user);
     }
 }

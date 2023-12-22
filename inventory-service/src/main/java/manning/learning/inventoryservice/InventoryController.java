@@ -25,6 +25,10 @@ public class InventoryController
         logger.info("[HttpHeaders]"+ httpHeaders.toString());
         SpanContext parent = tracer.extract(io.opentracing.propagation.Format.Builtin.HTTP_HEADERS, new HttpHeaderCarrier(httpHeaders));
         Span span = tracer.buildSpan("createOrder").asChildOf(parent).start();
+        String user = span.getBaggageItem("user");
+        logger.info("User: " + user);
+        logger.info("httpHeaders: " + httpHeaders.toString());
+
         logger.info("Order Created");
         try
         {
@@ -34,9 +38,9 @@ public class InventoryController
         {
             logger.info("Exception: " + e.getMessage());
         }
-        logger.info("Order Created");
+        logger.info(" Order Created by " + user);
         span.finish();
-        return "Order Created";
+        return String.format("%s's order has been created\n", user);
 
     }
 }

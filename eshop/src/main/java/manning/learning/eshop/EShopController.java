@@ -38,6 +38,8 @@ public class EShopController
         log.info("all headers: " + httpHeaders);
         log.info("presented headers!!");
         HttpEntity<String> entity = new HttpEntity<String>("", httpHeaders);
+        span.setBaggageItem("user",httpHeaders.getFirst("user"));
+        log.info( "bagga-user: " + span.getBaggageItem("user"));
         tracer.inject(span.context(), io.opentracing.propagation.Format.Builtin.HTTP_HEADERS, new HttpHeaderCarrier(httpHeaders));
         log.info("checkout() method invoked");
         result = restTemplate.exchange("http://inventory-service:8080/createOrder", HttpMethod.GET, entity, String.class).getBody();
