@@ -34,6 +34,7 @@ public class EShopController
             httpHeaders.add(key,value);
         });
         httpHeaders.add("span-id",span.context().toSpanId());
+
         log.info("all headers: " + httpHeaders);
         log.info("presented headers!!");
         HttpEntity<String> entity = new HttpEntity<String>("", httpHeaders);
