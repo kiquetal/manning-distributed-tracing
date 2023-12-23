@@ -21,11 +21,13 @@ public class DeliverServiceApplication
     {
         return new RestTemplate();
     }
-
+/*
     @Bean
     public Tracer getTracer()
     {
         // Check dockerfile we need to set environment -varaible
         return  Configuration.fromEnv("eshop").getTracer();
     }
+
+ */
 }

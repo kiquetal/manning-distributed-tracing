@@ -19,22 +19,22 @@ public class DeliveryController
 {
     @Autowired
     private RestTemplate restTemplate;
-@Autowired
-    private Tracer tracer;
+   // @Autowired
+   // private Tracer tracer;
     Logger log = Logger.getLogger(DeliveryController.class.getName());
 
     @RequestMapping("/arrangeDelivery")
     public String arrangeDelivery(@RequestHeader HttpHeaders headers)
     {
 
-        SpanContext parent = tracer.extract(io.opentracing.propagation.Format.Builtin.HTTP_HEADERS, new HttpHeaderCarrier(headers));
-        Span span = tracer.buildSpan("arrangeDelivery").asChildOf(parent).start();
-        String user = span.getBaggageItem("user");
-        tracer.inject(span.context(), io.opentracing.propagation.Format.Builtin.HTTP_HEADERS, new HttpHeaderCarrier(headers));
+     //   SpanContext parent = tracer.extract(io.opentracing.propagation.Format.Builtin.HTTP_HEADERS, new HttpHeaderCarrier(headers));
+    //    Span span = tracer.buildSpan("arrangeDelivery").asChildOf(parent).start();
+    //    String user = span.getBaggageItem("user");
+    //    tracer.inject(span.context(), io.opentracing.propagation.Format.Builtin.HTTP_HEADERS, new HttpHeaderCarrier(headers));
         String result = "";
         log.info("Arranging delivery");
         try {
-            result += String.format("%s's order is on the way.\n ", user);
+     //       result += String.format("%s's order is on the way.\n ", user);
             HttpEntity<String> entity = new HttpEntity<>(headers);
             result += restTemplate.exchange("http://logistic-service:8080/transport", org.springframework.http.HttpMethod.GET, entity, String.class).getBody();
             Thread.sleep(800 + (int) (Math.random() * 400));
@@ -42,7 +42,7 @@ public class DeliveryController
             log.info("Exception: " + e.getMessage());
         }
         log.info("Delivery arranged");
-        span.finish();
+      //  span.finish();
         return result;
     }
 }

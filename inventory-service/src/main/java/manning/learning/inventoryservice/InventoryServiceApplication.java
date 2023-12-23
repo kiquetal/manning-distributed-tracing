@@ -14,11 +14,13 @@ public class InventoryServiceApplication
     {
         SpringApplication.run(InventoryServiceApplication.class, args);
     }
-
+/*
     @Bean
     public Tracer getJaegerTracer()
     {
         return  Configuration.fromEnv("eshop").getTracer();
 
     }
+
+ */
 }

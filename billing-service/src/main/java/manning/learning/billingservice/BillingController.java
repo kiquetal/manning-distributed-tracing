@@ -17,15 +17,15 @@ public class BillingController
 {
 
     Logger log = Logger.getLogger(BillingController.class.getName());
-    @Autowired
-    private Tracer tracer;
+ //   @Autowired
+ //   private Tracer tracer;
     @RequestMapping("/payment")
     public String payment(@RequestHeader HttpHeaders httpHeaders)
     {
       log.info("All headers: " + httpHeaders);
-     SpanContext parentSpanContext = tracer.extract(io.opentracing.propagation.Format.Builtin.HTTP_HEADERS, new HttpHeaderCarrier(httpHeaders));
-     Span span = tracer.buildSpan("payment").asChildOf(parentSpanContext).start();
-     String user = span.getBaggageItem("user");
+   //  SpanContext parentSpanContext = tracer.extract(io.opentracing.propagation.Format.Builtin.HTTP_HEADERS, new HttpHeaderCarrier(httpHeaders));
+   //  Span span = tracer.buildSpan("payment").asChildOf(parentSpanContext).start();
+  //   String user = span.getBaggageItem("user");
      log.info("Init payment");
      try
      {
@@ -37,8 +37,8 @@ public class BillingController
             log.info("Error in payment");
         }
         log.info("End payment");
-        span.finish();
-    return String.format("%s's has been paid\n", user);
+     //   span.finish();
+    return String.format("has been paid\n");
     }
 
 }

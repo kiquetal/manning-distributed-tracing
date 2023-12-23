@@ -14,10 +14,12 @@ public class BillingServiceApplication
     {
         SpringApplication.run(BillingServiceApplication.class, args);
     }
-
+/*
     @Bean
     public Tracer getJaeger()
     {
         return Configuration.fromEnv("eshop").getTracer();
     }
+
+ */
 }

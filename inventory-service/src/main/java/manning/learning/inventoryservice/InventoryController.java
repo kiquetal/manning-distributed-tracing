@@ -14,8 +14,8 @@ import java.util.logging.Logger;
 @RestController
 public class InventoryController
 {
-    @Autowired
-    private Tracer tracer;
+//    @Autowired
+ //   private Tracer tracer;
     Logger logger = Logger.getLogger(InventoryController.class.getName());
 
     @RequestMapping("/createOrder")
@@ -23,10 +23,10 @@ public class InventoryController
     {
 
         logger.info("[HttpHeaders]"+ httpHeaders.toString());
-        SpanContext parent = tracer.extract(io.opentracing.propagation.Format.Builtin.HTTP_HEADERS, new HttpHeaderCarrier(httpHeaders));
-        Span span = tracer.buildSpan("createOrder").asChildOf(parent).start();
-        String user = span.getBaggageItem("user");
-        logger.info("User: " + user);
+    //    SpanContext parent = tracer.extract(io.opentracing.propagation.Format.Builtin.HTTP_HEADERS, new HttpHeaderCarrier(httpHeaders));
+    //    Span span = tracer.buildSpan("createOrder").asChildOf(parent).start();
+    //    String user = span.getBaggageItem("user");
+    //    logger.info("User: " + user);
         logger.info("httpHeaders: " + httpHeaders.toString());
 
         logger.info("Order Created");
@@ -38,9 +38,9 @@ public class InventoryController
         {
             logger.info("Exception: " + e.getMessage());
         }
-        logger.info(" Order Created by " + user);
-        span.finish();
-        return String.format("%s's order has been created\n", user);
+     //   logger.info(" Order Created by " + user);
+     //   span.finish();
+        return String.format(" order has been created\n");
 
     }
 }

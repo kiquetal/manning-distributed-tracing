@@ -15,21 +15,19 @@ import java.util.logging.Logger;
 public class Controller
 {
 
-    @Autowired
-    private Tracer tracer;
+//    @Autowired
+//    private Tracer tracer;
     @RequestMapping("/transport")
-
-
     public String transport(@RequestHeader HttpHeaders httpHeaders)
     {
         Logger log = Logger.getLogger(Controller.class.getName());
         log.info("Transporting");
 
 
-        SpanContext parentSpanContext = tracer.extract(io.opentracing.propagation.Format.Builtin.HTTP_HEADERS, new HttpHeaderCarrier(httpHeaders));
-        log.info("parentSpanContext: " + parentSpanContext);
-        Span span = tracer.buildSpan("transport").asChildOf(parentSpanContext).start();
-        String user = span.getBaggageItem("user");
+      //  SpanContext parentSpanContext = tracer.extract(io.opentracing.propagation.Format.Builtin.HTTP_HEADERS, new HttpHeaderCarrier(httpHeaders));
+      //  log.info("parentSpanContext: " + parentSpanContext);
+      //  Span span = tracer.buildSpan("transport").asChildOf(parentSpanContext).start();
+      //  String user = span.getBaggageItem("user");
         try
         {
             Thread.sleep(800 + (int)(Math.random() * 400));
@@ -40,7 +38,7 @@ public class Controller
             log.info("Exception: " + e.getMessage());
         }
         log.info("Transported");
-        span.finish();
-        return String.format("%s's order is delivered\n", user);
+     //   span.finish();
+        return String.format("order is delivered\n");
     }
 }

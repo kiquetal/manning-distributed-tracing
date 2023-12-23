@@ -22,9 +22,12 @@ public class EshopApplication
         return new RestTemplate();
     }
 
+    /*
     @Bean
     public Tracer getJaegerTracer()
     {
         return Configuration.fromEnv("eshop").getTracer();
     }
+
+     */
 }

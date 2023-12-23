@@ -14,10 +14,12 @@ public class LogisticServiceApplication
     {
         SpringApplication.run(LogisticServiceApplication.class, args);
     }
-
+/*
     @Bean
     public Tracer getJaegerTracer()
     {
         return Configuration.fromEnv("eshop").getTracer();
     }
+
+ */
 }
